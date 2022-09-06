@@ -1,76 +1,62 @@
-# SHINE-EMNLP21
-
-<p align="center"><img src="SHINE-thumbnail.png" alt="logo" width="600px" />
-
-
-This repository provides the source codes of ["Hierarchical Heterogeneous Graph Representation Learning for Short Text Classification"](https://aclanthology.org/2021.emnlp-main.247/) published in *EMNLP 2021* as a long paper. 
-
-Please cite our paper if you find it helpful. Thanks. 
-```
-@inproceedings{wang-etal-2021-hierarchical,
-    title = "Hierarchical Heterogeneous Graph Representation Learning for Short Text Classification",
-    author = "Wang, Yaqing  and
-      Wang, Song  and
-      Yao, Quanming  and
-      Dou, Dejing",
-    booktitle = "Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing",
-    month = nov,
-    year = "2021",
-    address = "Online and Punta Cana, Dominican Republic",
-    publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2021.emnlp-main.247",
-    doi = "10.18653/v1/2021.emnlp-main.247",
-    pages = "3091--3101",
-    abstract = "Short text classification is a fundamental task in natural language processing. It is hard due to the lack of context information and labeled data in practice. In this paper, we propose a new method called SHINE, which is based on graph neural network (GNN), for short text classification. First, we model the short text dataset as a hierarchical heterogeneous graph consisting of word-level component graphs which introduce more semantic and syntactic information. Then, we dynamically learn a short document graph that facilitates effective label propagation among similar short texts. Thus, comparing with existing GNN-based methods, SHINE can better exploit interactions between nodes of the same types and capture similarities between short texts. Extensive experiments on various benchmark short text datasets show that SHINE consistently outperforms state-of-the-art methods, especially with fewer labels.",
-}
-```
-
+# NameSpotter
+**NameSpotter** is designed to automatically identify low-quality method names with graph neural networks. It leverages three graph-based networks to extract features of method names: Word graph and word tag graph exploit the semantic and syntactic features of method names, and parameter graph exploit the semantic features of methods’ parameters. The overview of **NameSpotter** and the graph structure are plotted in the below two figures. 
+<p align="center"><img src="Overview.png" alt="logo" width="700px" id="overview"/>
+<p align="center"><img src="Approach_version3.png" alt="logo" width="800px" />
 ## Environment  
-We provide both the **PyTorch** and **PaddlePaddle** implementations of SHINE in this repository: 
-
+We implement NameSpotter with **PyTorch**, 
 ### Torch Version:
-- Python 3.7
+- Python 3.6.9
 - Pytorch 1.2
 
-### Paddle Version:
-- Python 3.7
-- Paddlepaddle 2.2
+and the other required packages can be found in **requirements.txt**.
+
+
 
 ## Quick Start
-If you want to run the Torch version:
+(1) Clone the repository from GitHub:
 ```
-cd SHINE-Torch
-```
-Or if you want to run the PaddlePaddle version:
-```
-cd SHINE-Paddle
+git clone https://github.com/AnonymousAccountSE/NameSpotter_OnlineRepos.git
 ```
 
-Then, You can quickly check out how SHINE operates on the Twitter dataset by:
+(2) Configure the python and PyTorch environment and set up the environments by:
 ```
-Python train.py
-```
-
-You can choose a specific dataset by: 
-```
-Python train.py --dataset snippets
-```
-Likewise, you can choose the specific GPU by:
-```
-Python train.py --dataset snippets --gpu 2
+pip install -r requirements.txt
 ```
 
-## Use Your Own Datasets
-
-If you want to try SHINE on your own datasets, you need to make your data in the same form of "snippets_split.json".
-
-For the pretrained NELL entity embedding and Glove6B word embedding used in SHINE, you can download them from [here](https://drive.google.com/file/d/1gzIsN6XVqEXPJQR8MXVolbmKqlPgU_YA/view?usp=sharing). 
-Afterwards, you can preprocess the data by:
+(3) Switch to the NameSpotter directory:
 ```
-Python preprocess.py
+cd Code/NameSpotter
+```
+(4) Preprocess the data and get them prepared for training by:
+```
+cd preprocess
+python proprocess.py
+```
+(5) Then, NameSpotter should work on our manually labelled dataset by:
+```
+cd PyTorch
+python train.py
+```
+In addition, you can choose the specific GPU by:
+```
+python train.py --gpu 2
 ```
 
+## Apply NameSpotter on Your Own Datasets
 
+To apply NameSpotter on your own datasets, you need to make your data in the same form of "method_name_param_pos_tag.json".
+
+NameSpotter can be evaluated on your own dataset by: 
+``` 
+cd preprocess
+python One-Stop2Json.py
+python proprocess.py
+python train.py --dataset YOUR_DATA
+```
+
+## Tuning NameSpotter
+
+The search space of all the hyperparameters can be found in search_space.txt. We follow the grid search strategy to perform the parameter tuning.
 
 
 

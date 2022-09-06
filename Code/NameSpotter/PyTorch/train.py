@@ -10,7 +10,7 @@ if __name__ == '__main__':
     parser.add_argument("--gpu", type=int, default=0,
                             help="choose which GPU")
     parser.add_argument("--dataset", "-d", type=str, default='method_name_param_pos_tag',
-                            help="choose the dataset: 'snippets' or 'twitter'")
+                            help="set the dataset name")
     parser.add_argument("--data_path", "-d_path", type=str, default='../preprocess/',
                             help="choose the data path if necessary")
     parser.add_argument("--save_path", type=str, default="../result/",
@@ -20,9 +20,7 @@ if __name__ == '__main__':
     parser.add_argument("--seed", type=int, default=100,
                             help="seeds for random initial")
     parser.add_argument("--hidden_size", type=int, default=200,
-                            help="hidden size")                        
-    parser.add_argument("--threshold", type=float, default=4.2,
-                            help="threshold for graph construction")
+                            help="hidden size")
     parser.add_argument("--lr", type=float, default=1e-3,
                             help="learning rate of the optimizer")
     parser.add_argument("--weight_decay", type=float, default=1e-4,
@@ -34,9 +32,9 @@ if __name__ == '__main__':
     parser.add_argument("--concat_word_emb", type=bool, default=False,
                             help="concat word embedding with pretrained model")
     params = parser.parse_args()
-    params.type_num_node = ['query', 'tag', 'word','param']
+    params.type_num_node = ['method_name', 'tag', 'word','param']
     params.data_path = params.data_path + './{}_data/'.format(params.dataset)
-    params.save_name = params.save_path + './result_torch_{}_{}.json'.format(params.dataset,params.threshold)
+    params.save_name = params.save_path + './result_torch_{}.json'.format(params.dataset)
     if not params.disable_cuda and torch.cuda.is_available():
         params.device = torch.device('cuda:%d' % params.gpu)
     else:
@@ -45,8 +43,6 @@ if __name__ == '__main__':
     trainer = Trainer(params)
     test_acc,best_f1, best_precision, global_evaluation, records = trainer.train()
     print(records)
-    write_records = open("../result/result_4504.txt",'w')
-    write_records.write(records)
     print("best_acc:" + str(test_acc/10) + "," + "best_f1:" + str(best_f1/10) + ",best_precision:" + str(best_precision/10))
     average_precision_0 = 0
     average_recall_0 = 0
@@ -74,6 +70,5 @@ if __name__ == '__main__':
 
     print("0:" + str(round(average_precision_0,3))+","+str(round(average_recall_0,3))+"," + str(round(average_f1_0,3)))
     print("1:" + str(round(average_precision_1,3))+","+str(round(average_recall_1,3))+"," + str(round(average_f1_1,3)))
-    # print(global_evaluation)
     save_res1(params, test_acc/10, best_f1/10)
     del trainer
