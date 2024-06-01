@@ -1,6 +1,5 @@
 # NameSpotter
 **NameSpotter** is designed to automatically identify low-quality method names with graph neural networks. It leverages three graph-based networks to extract features of method names: Word graph and word tag graph exploit the semantic and syntactic features of method names, and parameter graph exploit the semantic features of methods’ parameters. The overview of **NameSpotter** and the graph structure are plotted in the below two figures. 
-<p align="center"><img src="Overview.png" alt="logo" width="700px" id="overview"/>
 <p align="center"><img src="Approach_version3.png" alt="logo" width="800px" />
 ## Environment  
 We implement NameSpotter with **PyTorch**, 

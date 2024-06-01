@@ -2,13 +2,11 @@
  ***
  ## Content of the replication package
 
- /AblationStudy: The four variants of NameSpotter to investigate how the key component contributes to the effectiveness of NameSpotter.
-
  /Code: The implementation of NameSpotter which contains the replication steps.
 
  /Data: Publicly available method names dataset which is labeled by ten developers.
 
- /Survey: The materials of interview and data labeling.
+ /LiveStudy: The results of the live study conducted on developers, with addresses of pull requests provided.
   ***
  ## How to replicate the evaluation of NameSpotter?
  
