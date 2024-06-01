@@ -1,6 +1,7 @@
 # NameSpotter
 **NameSpotter** is designed to automatically identify abnormal method names with graph neural networks. Besides the method names, we also leverage their POS tags and parameter information as the input. \emph{NameSpotter} is equipped with three graph neural networks for extracting semantic and syntactic features of the inputs separately. The outputs of the three graphs are hierarchically pooled and aggregated, resulting in a method name feature representation for the final identification. Our evaluation results on 4,327 real-world method names suggest that the proposed approach performs effectively in identifying abnormal method names with an accuracy of 91.9%, outperforming the state-of-the-art approach by 21.5%. 
 <p align="center"><img src="Approach_version3.png" alt="logo" width="800px" />
+
 ## Environment  
 We implement NameSpotter with **PyTorch**, 
 ### Torch Version:
@@ -39,18 +40,6 @@ python train.py
 In addition, you can choose the specific GPU by:
 ```
 python train.py --gpu 2
-```
-
-## Apply NameSpotter on Your Own Datasets
-
-To apply NameSpotter on your own datasets, you need to make your data in the same form of "method_name_param_pos_tag.json".
-
-NameSpotter can be evaluated on your own dataset by: 
-``` 
-cd preprocess
-python One-Stop2Json.py
-python proprocess.py
-python train.py --dataset YOUR_DATA
 ```
 
 ## Tuning NameSpotter
