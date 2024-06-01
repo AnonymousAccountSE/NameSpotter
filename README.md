@@ -2,9 +2,9 @@
  ***
  ## Content of the replication package
 
- /Code: The implementation of NameSpotter which contains the replication steps.
+ /Code: The implementation of NameSpotter with detailed replication steps.
 
- /Data: Publicly available method names dataset which is labeled by ten developers.
+ /Data: Publicly available method names dataset, which is labeled by five evaluators.
 
  /LiveStudy: The results of the live study conducted on developers, with addresses of pull requests provided.
   ***
